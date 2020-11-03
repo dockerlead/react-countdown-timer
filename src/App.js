@@ -54,7 +54,7 @@ function App() {
     <div>
       <div className="header">
         <div className="content">
-          <h1>CHRISTMAS <span>{year}</span></h1>
+          <h1>CHRISTMAS <span>{year}</span> AT POWr</h1>
           <h2>COMING SOON</h2>
           <div className="countdown">
             {timerComponents.length ? timerComponents : <span>Time's up!</span>}
