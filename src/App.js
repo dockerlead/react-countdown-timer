@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './App.css';
+import './App.scss';
 
 function App() {
 
@@ -9,10 +9,15 @@ function App() {
     let timeLeft = {}
     if (difference > 0) {
       timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        hours: Math.floor(difference / (1000 * 60 * 60 * 24)) * 24 + Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
         seconds: Math.floor((difference / 1000) % 60)
+      }
+    } else {
+      timeLeft = {
+        hours: '00',
+        minutes: '00',
+        seconds: '00'
       }
     }
     return timeLeft;
@@ -28,22 +33,35 @@ function App() {
     return () => clearTimeout(timer)
   })
   const timerComponents = []
-  Object.keys(timeLeft).forEach((interval) => {
-    if (!timeLeft[interval]) {
+  Object.keys(timeLeft).forEach((key) => {
+    if (!timeLeft[key]) {
       return
     }
     timerComponents.push(
-      <span>
-        {timeLeft[interval]} {interval}{" "}
+      <span key={key}>
+        {timeLeft[key]} {key}{" "}
       </span>
     )
   })
 
+  timerComponents.push(
+    <span key="remaining-span">
+      remaining
+    </span>
+  )
+
   return (
-  <div>
-    <h1>Christmas {year} Countdown</h1>
-    {timerComponents.length ? timerComponents : <span>Time's up!</span>}
-  </div>  
+    <div>
+      <div className="header">
+        <div className="content">
+          <h1>CHRISTMAS <span>{year}</span></h1>
+          <h2>COMING SOON</h2>
+          <div className="countdown">
+            {timerComponents.length ? timerComponents : <span>Time's up!</span>}
+          </div>
+        </div>
+      </div>
+    </div>  
   );
 }
 
